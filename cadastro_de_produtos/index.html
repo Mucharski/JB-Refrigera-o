@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<!-- CADASTRO DE PRODUTOS -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="tabelaProduto.css" type="text/css">
+    <title>JB Refrigeração</title>
+</head>
+
+<body class="bg-light fonte-diferente">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="file:///F:\Desenvolvimento_github\pagina_inicial\início\index.html">JB Refrigeração</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Cadastro de Produtos <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="file:///F:/Desenvolvimento_github/pagina_inicial/início/cadastro_de_clientes/index.html">Cadastro de Clientes </a>
+                </div>
+            </div>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="btSair">Sair</button>
+            </form>
+        </nav>
+    </header>
+    <div class="table-responsive text-center">
+        <table class="table table-striped table-hover table-bordered text-center" id="tabela">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome do Cliente</th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Data de Entrada</th>
+                    <th scope="col">Problema</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProduto">
+                <!-- Aqui que o JQuery vai gerar a tabela -->
+            </tbody>
+        </table>
+        <button class="btn btn-success text-center" data-toggle="modal" data-target="#modal-mensagem">Cadastrar</button>
+        <!-- botão para abrir a janela modal  -->
+    </div>
+    <div class="modal fade" id="modal-mensagem">
+        <!-- Inicio da janela MODAL -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cadastro</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="form-group">
+                            Nome do Cliente: <input type="text" class="form-control" id="inNome">
+                        </div>
+                        <div class="form-group">
+                            Produto: <input type="text" class="form-control" id="inProduto">
+                        </div>
+                        <div class="form-group">
+                            Data de Entrada: <input type="text" class="form-control" id="inEntrada" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group">
+                            Descrição do Problema: <textarea class="form-control" id="inDescricao" rows="5"></textarea>
+                        </div>
+                        <input type="button" id="btCadastrar" value="Cadastrar &#10003;" class="btn btn-success mb-3">
+                    </div>
+                    <span id="algoErrado"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="fechaModal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Fim da janela MODAL -->
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs"
+        crossorigin="anonymous"></script>
+    <!-- Cria um PDF para imprimir as coisas -->
+    <!-- JavaScript Opcionais para funcionar com JQuery -->
+    <script src="tabelaProduto.js"></script>
+    <script src="deletarLinha.js"></script>
+</body>
+
+</html>
