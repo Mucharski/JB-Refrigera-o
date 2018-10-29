@@ -48,7 +48,7 @@ $(document).ready(function () {
         const linha5 = document.createElement("td"); // essa td é criada especialmente para o botão
         const botao = document.createElement("button"); // aqui cria o botão
         botao.className = "btn btn-danger" // aqui é a classe do botão para ele ficar vermelho (bootstrap)
-        botao.innerHTML = "Finalizado &#10007;" // aqui o texto que ficará dentro dele
+        botao.innerHTML = "Excluir &#10007;" // aqui o texto que ficará dentro dele
         botao.onclick = function () {
 
             var certeza = confirm("Tem certeza que deseja excluir o cadastro?")
