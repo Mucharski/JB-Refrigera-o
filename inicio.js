@@ -14,7 +14,7 @@ $(document).ready(function () {
             const _0xf05bx1 = $(_0x9cd6[1])[_0x9cd6[0]]();
             const _0xf05bx2 = $(_0x9cd6[2])[_0x9cd6[0]]();
             if (_0xf05bx1 === _0x9cd6[3] && _0xf05bx2 === _0x9cd6[4]) {
-                window[_0x9cd6[6]][_0x9cd6[5]] = _0x9cd6[7]
+                window.location.href = "inicioLogin/index.html"
             } else {
                 alert(_0x9cd6[8]); $(_0x9cd6[1])[_0x9cd6[9]]();
                 return

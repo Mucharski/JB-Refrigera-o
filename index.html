@@ -20,22 +20,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Início <span class="sr-only">(current)</span></a>
-            </div>
+            <!--Nenhum menu aqui -->
         </div>
     </nav>
     <div class="container-fluid text-center">
-        <h1 class="mt-1">Bem-vindo ao sistema da JB Refrigeração! <br> Faça seu login para continuar.</h1>
-            <div class="container bg-secondary text-light mt-5 pt-3 pb-3 fundo1">
-                <p>Login:
-                    <input type="text" id="inLogin"></p>
-                <p>Senha:
-                    <input type="password" id="inSenha"></p>
-                <button type="button" id="btIr" class="btn btn-primary mt-2">ENTRAR</button>
+        <h1 class="mt-1" id="fonteDiferente">Bem-vindo ao sistema da JB Refrigeração! <br> Faça seu login para continuar.</h1>
+        <div class="container text-light mt-5 pt-3 pb-3">
+            <button type="button" class="btn btn-light mt-2" data-toggle="modal" data-target="#modal-mensagem"><img
+                    src="CoolClips_vc047816.png" class="img-fluid"></button>
+        </div>
+
+        <div class="modal fade" id="modal-mensagem">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Faça seu login</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        Login: <input type="text" class="form-control" id="inLogin">
+                        Senha: <input type="password" class="form-control" id="inSenha">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="btIr">Entrar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
-
-
+        </div>
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
