@@ -34,20 +34,8 @@
     </nav>
     </header>
     <div class="table-responsive text-center">
-        <table class="table table-striped table-hover table-bordered text-center" id="tabela">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Endereço</th>
-                    <th scope="col">Opções</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaCliente">
-                <!-- Aqui que o JQuery vai gerar a tabela -->
-            </tbody>
+        <table class="table table-striped table-hover table-bordered text-center" id="tabelaCliente">
+            <!-- Aqui que gera a tabela"-->
         </table>
         <button class="btn btn-success text-center" data-toggle="modal" data-target="#modal-mensagem">Cadastrar</button>
         <!-- botão para abrir a janela modal -->
@@ -58,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Cadastro</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                    <button type="button" class="close recarregar" data-dismiss="modal"><span>×</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="text-center">
@@ -82,13 +70,13 @@
                                 Número: <input type="text" class="form-control" id="inNumero" placeholder="00">
                             </div>
                         </div>
-                        <input type="button" id="btCadastrarC" value="Cadastrar &#10003;" class="btn btn-success mb-3 mt-4">
+                        <input type="submit" id="btCadastrarC" value="Cadastrar &#10003;" class="btn btn-success mb-3 mt-4">
                         <!--botão do cadastro -->
                     </div>
                     <span id="algoErrado"></span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="fechaModal">Fechar</button>
+                    <button type="button" class="btn btn-default recarregar" data-dismiss="modal" id="fechaModal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -102,7 +90,6 @@
         crossorigin="anonymous"></script>
     <!-- JavaScript Opcionais para funcionar com JQuery -->
     <script src="tabelaCliente.js"></script>
-    <script src="guid.js"></script>
 </body>
 
 </html>

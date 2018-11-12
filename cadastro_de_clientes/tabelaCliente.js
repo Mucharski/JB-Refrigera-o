@@ -1,78 +1,85 @@
-$(document).ready(function () {
+$(function () {
+    var operacao = "A"; //"A"=Adição; "E"=Edição
+    var indice_selecionado = -1; //Índice do item selecionado na lista
+    var tbClientes = localStorage.getItem("tbClientes");// Recupera os dados armazenados
+    tbClientes = JSON.parse(tbClientes); // Converte string para objeto
 
-    $("#btCadastrarC").click(function () {
+    if (tbClientes == null) { // Caso não haja conteúdo, iniciamos um vetor vazio
+        tbClientes = [];
+    }
 
-        var nome = $("#inNome").val();
-        var CPF = $("#inCPF").val();
-        var telefone = $("#inTelefone").val();
-        var email = $("#inEmail").val();
-        var endereco = $("#inEndereco").val();
-        var numeroCasa = $("#inNumero").val();
+    $("#btCadastrarC").on("click", function () {
+        if (operacao == "A") {
+            return Adicionar(tbClientes);
+        } 
+    });
 
-        // todos atributos da página e seus valores já estão sendo pegos
+    Listar(tbClientes);
 
-        if (nome == "" || (CPF == "" || (telefone == "" || (email == "")))) {
-            $("#algoErrado").text("* Preencha os campos corretamente").css({ 'color': 'red', 'opacity': '0.5', 'font-size': '12px' });
-            return;
-
-        } else {
-            $("#algoErrado").text("Cadastrado com sucesso!").css({ 'color': 'green', 'opacity': '1.0', 'font-size': '14px' });
-
-        } // verificação caso algum dado esteja incorreto
-
-        // criação da coluna
-
-        const coluna = document.createElement("tr"); // cria a linha inteira
-
-        $("#tabelaCliente").append(coluna); // apensa a linha criada ao id tabelaCliente
-
-        const linha = document.createElement("td"); // cria uma coluna
-        linha.innerHTML = nome // coluna coloca o nome
-        $(coluna).append(linha); // apensa a coluna do nome a linha criada
-
-        const linha2 = document.createElement("td");
-        linha2.innerHTML = CPF
-        $(coluna).append(linha2);
-
-        const linha3 = document.createElement("td");
-        linha3.innerHTML = telefone
-        $(coluna).append(linha3);
-
-        const linha4 = document.createElement("td"); // mesmo raciocinio dos comentarios acima
-        linha4.innerHTML = email
-        $(coluna).append(linha4);
-
-        const linhaExtra = document.createElement("td")
-        linhaExtra.innerHTML = endereco + " nº: " + numeroCasa
-        $(coluna).append(linhaExtra)
-
-        const linha5 = document.createElement("td"); // essa td é criada especialmente para o botão
-        const botao = document.createElement("button"); // aqui cria o botão
-        botao.className = "btn btn-danger" // aqui é a classe do botão para ele ficar vermelho (bootstrap)
-        botao.innerHTML = "Excluir &#10007;" // aqui o texto que ficará dentro dele
-        botao.onclick = function () {
-
-            var certeza = confirm("Tem certeza que deseja excluir o cadastro?")
-            if (certeza === true) {
-                $(this).parent().parent().remove();
-            } else {
-                return;
-            }
-        }
-
-        $(linha5).append(botao); // apensando o botão a nova td
-        $(coluna).append(linha5); // apensando a nova linha a coluna
-
-        $(this).attr("disabled", true);
-        setTimeout(function () {
-            $("#btCadastrarC").removeAttr("disabled");
-        }, 4000);
-
-    }); // fim dessa função
-
-    $("#btSair").click(function () {
-        window.location.href = "../index.html"
-    })
+    $("#tabelaCliente").on("click", "#btnExcluir", function () {
+        indice_selecionado = parseInt($(this).attr("alt"));
+        Excluir(tbClientes, indice_selecionado);
+        Listar(tbClientes);
+    });
 });
+
+function Adicionar(tbClientes) {
+
+    var cliente = JSON.stringify({
+        Nome: $("#inNome").val(),
+        CPF: $("#inCPF").val(),
+        Telefone: $("#inTelefone").val(),
+        Email: $("#inEmail").val(),
+        Endereço: $("#inEndereco").val(),
+        Numero: $("#inNumero").val()
+    });
+    tbClientes.push(cliente);
+    console.log("tbClientes - " + tbClientes);
+    localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
+    return true;
+}
+
+function Excluir(tbClientes, indice_selecionado) {
+    tbClientes.splice(indice_selecionado, 1);
+    localStorage.setItem("tbClientes", JSON.stringify(tbClientes));
+    alert("Cadastro excluído");
+
+}
+
+function Listar(tbClientes) {
+    $("#tabelaCliente").html(
+        "<thead>" +
+        "   <tr>" +
+        "   <th>Nome</th>" +
+        "   <th>CPF</th>" +
+        "   <th>Telefone</th>" +
+        "   <th>Email</th>" +
+        "   <th>Endereço</th>" +
+        "   <th>Opções</th>" +
+        "   </tr>" +
+        "</thead>" +
+        "<tbody>" +
+        "</tbody>"
+    );
+    for (var i in tbClientes) {
+        var cli = JSON.parse(tbClientes[i]);
+        $("#tabelaCliente tbody").append("<tr>");
+        $("#tabelaCliente tbody").append("<td>" + cli.Nome + "</td>");
+        $("#tabelaCliente tbody").append("<td>" + cli.CPF + "</td>");
+        $("#tabelaCliente tbody").append("<td>" + cli.Telefone + "</td>");
+        $("#tabelaCliente tbody").append("<td>" + cli.Email + "</td>");
+        $("#tabelaCliente tbody").append("<td>" + cli.Endereço + " nº " + cli.Numero + "</td>");
+        $("#tabelaCliente tbody").append("<td><button type='button' class='btn btn-danger' id='btnExcluir'>Excluir</button></td>");
+        $("#tabelaCliente tbody").append("</tr>");
+    }
+}
+
+$(".recarregar").click(function () {
+    location.reload();
+})
+
+
+
+
 
 
