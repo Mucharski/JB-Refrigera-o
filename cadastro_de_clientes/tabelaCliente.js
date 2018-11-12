@@ -9,9 +9,13 @@ $(function () {
     }
 
     $("#btCadastrarC").on("click", function () {
-        if (operacao == "A") {
+        if ($("#inNome").val() === "" || ($("#inCPF").val() === "" )) {
+            $("#algoErrado").text("Preencha os campos corretamente").css({ 'color': 'red', 'opacity': '0.5', 'font-size': '12px' });
+            return;
+        } else if (operacao == "A") {
+            alert("Cadastrado com sucesso!") 
             return Adicionar(tbClientes);
-        } 
+        }
     });
 
     Listar(tbClientes);
