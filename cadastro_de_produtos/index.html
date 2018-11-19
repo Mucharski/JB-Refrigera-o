@@ -15,7 +15,7 @@
 <body class="bg-light fonte-diferente">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="../index.html">JB Refrigeração</a>
+            <a class="navbar-brand" href="../inicioLogin/index.html">JB Refrigeração</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,20 +34,8 @@
         </nav>
     </header>
     <div class="table-responsive text-center">
-        <table class="table table-striped table-hover table-bordered text-center" id="tabela">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome do Cliente</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col">Data de Entrada</th>
-                    <th scope="col">Problema</th>
-                    <th scope="col">Opções</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaProduto">
-                <!-- Aqui que o JQuery vai gerar a tabela -->
-            </tbody>
+        <table class="table table-striped table-hover table-bordered text-center" id="tabelaProduto">
+            <!-- aqui que vai gerar a tabela -->
         </table>
         <button class="btn btn-success text-center" data-toggle="modal" data-target="#modal-mensagem">Cadastrar</button>
         <!-- botão para abrir a janela modal -->
@@ -58,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Cadastro</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                    <button type="button" class="close recarregar" data-dismiss="modal"><span>×</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="text-center">
@@ -79,7 +67,7 @@
                     <span id="algoErrado"></span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="fechaModal">Fechar</button>
+                    <button type="button" class="btn btn-default recarregar" data-dismiss="modal" id="fechaModal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -97,8 +85,6 @@
     <!-- Cria um PDF para imprimir as coisas -->
     <!-- JavaScript Opcionais para funcionar com JQuery -->
     <script src="tabelaProduto.js"></script>
-    <script src="../controller/controller.js"></script>
-    <script src="../controller/produto.js"></script>
 </body>
 
 </html>

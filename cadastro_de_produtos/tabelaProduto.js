@@ -1,88 +1,115 @@
-$(document).ready(function () {
+$(function () {
+    var operacao = "A"; //"A"=Adição; "E"=Edição
+    var tbProduto = localStorage.getItem("tbProduto");// Recupera os dados armazenados
+    tbProduto = JSON.parse(tbProduto); // Converte string para objeto
 
-    $("#btCadastrar").click(function () {
-        var id = Math.random() * (50000 - 1) + 1; // gera um id aleatório entre 1 e 50000
-        var nome = $("#inNome").val();
-        var produto = $("#inProduto").val();
-        var entrada = $("#inEntrada").val();
-        var descricao = $("#inDescricao").val();
+    // Caso não haja conteúdo, iniciamos um vetor vazio
+    if (tbProduto == null)
+        tbProduto = [];
 
-        // todos atributos da página e seus valores já estão sendo pegos
+    tbProduto = tbProduto.map(c => JSON.parse(c));
+    Listar(tbProduto);
 
-        if (nome == "" || (produto == "" || (entrada == "" || (descricao == "")))) {
-            $("#algoErrado").text("* Preencha os campos corretamente").css({ 'color': 'red', 'opacity': '0.5', 'font-size': '12px' });
+    $("#btCadastrar").on("click", function () {
+        if ($("#inNome").val() === "" || ($("#inProduto").val() === "" || ($("#inEntrada").val() === ""))) {
+            $("#algoErrado").text("Preencha os campos corretamente").css({ 'color': 'red', 'opacity': '0.5', 'font-size': '12px' });
+            return;
+        } else if (operacao == "A") {
+            if (Adicionar(tbProduto))
+                alert("Cadastrado com sucesso!")
+        }
+    });
+
+
+    $("#tabelaProduto").on("click", "button", function () {
+        var certeza = confirm("Tem certeza que deseja excluir?")
+        if (certeza === true) {
+            Excluir(tbProduto, this.id);
+            Listar(tbProduto);
+        } else {
+            return
+        }
+    });
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    function menor(){
+        return Math.random () * (50000 - 1) + 1;
+    }
+
+    function Adicionar(tbProduto) {
+
+        var produto = JSON.stringify({
+            Id: guid(),
+            IdMenor: menor(),
+            Nome: $("#inNome").val(),
+            Produto: $("#inProduto").val(),
+            Entrada: $("#inEntrada").val(),
+            Descrição: $("#inDescricao").val(),
+        });
+        tbProduto.push(produto);
+        console.log("tbProduto - " + tbProduto);
+        localStorage.setItem("tbProduto", JSON.stringify(tbProduto));
+        return true;
+    }
+
+    function Excluir(tbProduto, id) {
+        var indice_selecionado = tbProduto
+            .findIndex(c => c.Id === id);
+
+        if (indice_selecionado === -1)
             return;
 
-        } else {
-            $("#algoErrado").text("Cadastrado com sucesso!").css({ 'color': 'green', 'opacity': '1.0', 'font-size': '14px' });
+        tbProduto.splice(indice_selecionado, 1);
+        localStorage.setItem("tbProduto", JSON.stringify(tbProduto));
+        alert("Cadastro excluído");
+    }
 
-        } // verificação caso algum dado esteja incorreto
-
-        // criação da coluna
-
-        const coluna = document.createElement("tr"); // cria a linha inteira
-
-        $("#tabelaProduto").append(coluna); // apensa a linha criada ao id "aqui"
-
-        var id1 = document.createElement("td"); // cria a linha para o id
-        id1.innerHTML = id.toFixed(0); // escreve o id randomico gerado na variavel id
-        $(coluna).append(id1) // apensa o id à coluna
-
-        const linha = document.createElement("td"); // cria uma coluna
-        linha.innerHTML = nome // coluna coloca o nome
-        $(coluna).append(linha); // apensa a coluna do nome a linha criada
-
-        const linha2 = document.createElement("td");
-        linha2.innerHTML = produto
-        $(coluna).append(linha2);
-
-        const linha3 = document.createElement("td");
-        linha3.innerHTML = entrada
-        $(coluna).append(linha3);
-
-        const linha4 = document.createElement("td"); // mesmo raciocinio dos comentarios acima
-        linha4.innerHTML = descricao
-        $(coluna).append(linha4);
-
-        const linha5 = document.createElement("td"); // essa td é criada especialmente para o botão
-        const botao = document.createElement("button"); // aqui cria o botão
-        botao.className = "btn btn-danger" // aqui é a classe do botão para ele ficar vermelho (bootstrap)
-        botao.innerHTML = "Finalizado &#10007;" // aqui o texto que ficará dentro dele
-        botao.onclick = function () {
-
-            var certeza = confirm("Tem certeza que deseja finalizar o serviço?")
-            if (certeza === true) {
-                $(this).parent().parent().remove();
-            } else {
-                return;
-            }
+    function Listar(tbProduto) {
+        $("#tabelaProduto").html(
+            "<thead>" +
+            "   <tr>" +
+            "   <th>ID</th>" +
+            "   <th>Nome do Cliente</th>" +
+            "   <th>Produto</th>" +
+            "   <th>Data de Entrada</th>" +
+            "   <th>Problema</th>" +
+            "   <th>Opções</th>" +
+            "   </tr>" +
+            "</thead>" +
+            "<tbody>" +
+            "</tbody>"
+        );
+        for (var i in tbProduto) {
+            var cli = tbProduto[i];
+            $("#tabelaProduto tbody").append("<tr>");
+            $("#tabelaProduto tbody").append("<td>" + cli.IdMenor.toFixed(0) + "</td>");
+            $("#tabelaProduto tbody").append("<td>" + cli.Nome + "</td>");
+            $("#tabelaProduto tbody").append("<td>" + cli.Produto + "</td>");
+            $("#tabelaProduto tbody").append("<td>" + cli.Entrada + "</td>");
+            $("#tabelaProduto tbody").append("<td>" + cli.Descrição + "</td>");
+            $("#tabelaProduto tbody").append("<td><button type='button' class='btn btn-danger' id='" + cli.Id + "' >Excluir</button></td>");
+            $("#tabelaProduto tbody").append("</tr>");
         }
-        
-        const botao2 = document.createElement("button");  // aqui cria o botão da impressão
-        botao2.className = "btn btn-primary ml-2"
-        botao2.innerHTML = "&#9993;"
-        botao2.onclick = function () {
-            var impressao = new jsPDF()
+    }
 
-            impressao.setFontSize(20)
-            impressao.text("ID: " + id.toFixed(0)
-                + "\nNome: " + nome + "\nProduto: " + produto + "\nData de Entrada: " + entrada, 10, 10)
-            impressao.save("imprimirID.pdf")
+    $(".recarregar").click(function () {
+        location.reload();
+    })
 
-        }
-
-        $(linha5).append(botao); // apensando o botão a nova td
-        $(linha5).append(botao2);
-        $(coluna).append(linha5); // apensando a nova linha a coluna
-
-        $(this).attr("disabled", true);
-        setTimeout(function () {
-            $("#btCadastrar").removeAttr("disabled");
-        }, 4000);
-
-    }); // fim dessa função
+    $(document).keypress(function (e) {
+        if (e.which == 13) $("#btCadastrar").click();
+    });
 
     $("#btSair").click(function(){
-        window.location.href = "file:///F:/Desenvolvimento_github/pagina_inicial/início/index.html"
-    })
-}); // sempre escrever acima desses simbolos, eles são do document.ready
+        window.location.href = "https://mucharski.github.io/JB-Refrigera-o/"
+})
+
+});
