@@ -7,7 +7,7 @@ $(function () {
     if (tbClientes == null)
         tbClientes = [];
 
-    tbClientes = tbClientes.map(c => JSON.parse(c));
+    // tbClientes = tbClientes.map(c => JSON.parse(c));
     Listar(tbClientes);
 
     $("#btCadastrarC").on("click", function () {
@@ -42,7 +42,7 @@ $(function () {
 
     function Adicionar(tbClientes) {
 
-        var cliente = JSON.stringify({
+        var cliente ={
             Id: guid(),
             Nome: $("#inNome").val(),
             CPF: $("#inCPF").val(),
@@ -50,7 +50,7 @@ $(function () {
             Email: $("#inEmail").val(),
             Endereço: $("#inEndereco").val(),
             Numero: $("#inNumero").val()
-        });
+        };
         tbClientes.push(cliente);
         console.log("tbClientes - " + tbClientes);
         localStorage.setItem("tbClientes", JSON.stringify(tbClientes));

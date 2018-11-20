@@ -7,7 +7,7 @@ $(function () {
     if (tbOrcamento == null)
         tbOrcamento = [];
 
-    tbOrcamento = tbOrcamento.map(c => JSON.parse(c));
+    // tbOrcamento = tbOrcamento.map(c => JSON.parse(c));
     Listar(tbOrcamento);
 
     $("#btCadastrarC").on("click", function () {
@@ -46,14 +46,14 @@ $(function () {
 
     function Adicionar(tbOrcamento) {
 
-        var orcamento = JSON.stringify({
-            ID: guid(),
+        var orcamento = {
+            Id: guid(),
             OS: menor(),
             Nome: $("#inNome").val(),
-            ServicoS: $("#inServico").val(),
+            ServiçoS: $("#inServico").val(),
             Produto: $("#inProduto").val(),
             Orçamento: $("#inOrcamento").val(),
-        });
+        };
         tbOrcamento.push(orcamento);
         console.log("tbOrcamento - " + tbOrcamento);
         localStorage.setItem("tbOrcamento", JSON.stringify(tbOrcamento));
@@ -91,7 +91,7 @@ $(function () {
             var cli = tbOrcamento[i];
             $("#tabelaOrcamento tbody").append("<tr>");
             $("#tabelaOrcamento tbody").append("<td>" + cli.Nome + "</td>");
-            $("#tabelaOrcamento tbody").append("<td>" + cli.ServicoS + "</td>");
+            $("#tabelaOrcamento tbody").append("<td>" + cli.ServiçoS + "</td>");
             $("#tabelaOrcamento tbody").append("<td>" + cli.Produto + "</td>");
             $("#tabelaOrcamento tbody").append("<td>" + cli.Orçamento + "</td>");
             $("#tabelaOrcamento tbody").append("<td>" + cli.OS.toFixed(0) + "</td>");

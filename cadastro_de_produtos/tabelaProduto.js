@@ -7,7 +7,7 @@ $(function () {
     if (tbProduto == null)
         tbProduto = [];
 
-    tbProduto = tbProduto.map(c => JSON.parse(c));
+    // tbProduto = tbProduto.map(c => JSON.parse(c));
     Listar(tbProduto);
 
     $("#btCadastrar").on("click", function () {
@@ -46,14 +46,14 @@ $(function () {
 
     function Adicionar(tbProduto) {
 
-        var produto = JSON.stringify({
+        var produto = {
             Id: guid(),
             IdMenor: menor(),
             Nome: $("#inNome").val(),
             Produto: $("#inProduto").val(),
             Entrada: $("#inEntrada").val(),
             Descrição: $("#inDescricao").val(),
-        });
+        };
         tbProduto.push(produto);
         console.log("tbProduto - " + tbProduto);
         localStorage.setItem("tbProduto", JSON.stringify(tbProduto));
